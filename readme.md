@@ -1,7 +1,9 @@
+# Nebula Shell
+
 Nebula shell is a work in progress desktop environement made for windows. Our goal is to replace windows explorer with a much more sophisticated and visually pleasing experience.
 
 
-# Gallery:
+## Gallery:
 <table>
     <tr>
         <td><img width="1919" height="1079" alt="Nebula Screenshot 2026-05-06 02-01-24" src="https://github.com/user-attachments/assets/d952a8aa-6c5b-47da-826b-be3a9fc8121f" /></td>
