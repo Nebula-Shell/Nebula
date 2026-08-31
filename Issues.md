@@ -1,0 +1,2 @@
+- Media player is broken
+- Eplorer dependecncy is still a huge issue when it comes to notifications and more accurate tray icons & music detection

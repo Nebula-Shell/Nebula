@@ -1,0 +1,74 @@
+<Window x:Class="CaelestiaWin.UI.Views.ColorPickerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Pick Color"
+        Width="360"
+        Height="360"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        Topmost="True"
+        ShowInTaskbar="False">
+    <Border Margin="16"
+            Padding="20"
+            Style="{StaticResource GlassPanelStyle}">
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock Text="Pick Color"
+                               FontFamily="{DynamicResource ShellHeadingFont}"
+                               FontSize="22"
+                               Foreground="{DynamicResource ShellForegroundBrush}" />
+                    <TextBlock Margin="0,5,0,0"
+                               Text="Adjust RGB channels or type a hex value."
+                               Foreground="{DynamicResource ShellMutedBrush}" />
+                </StackPanel>
+                <Button Grid.Column="1"
+                        Width="34"
+                        Height="34"
+                        Style="{StaticResource IconButtonStyle}"
+                        Click="Cancel_OnClick"
+                        Content="&#xE711;" />
+            </Grid>
+
+            <Border Margin="0,18,0,16"
+                    Height="58"
+                    CornerRadius="18"
+                    BorderBrush="{DynamicResource ShellHairlineBrush}"
+                    BorderThickness="1"
+                    Background="{Binding PreviewBrush, RelativeSource={RelativeSource AncestorType=Window}}" />
+
+            <TextBox Style="{StaticResource ShellTextBoxStyle}"
+                     FontSize="15"
+                     Padding="12,9"
+                     Text="{Binding SelectedColorHex, RelativeSource={RelativeSource AncestorType=Window}, UpdateSourceTrigger=PropertyChanged}" />
+
+            <TextBlock Margin="0,16,0,6" Text="Red" Foreground="{DynamicResource ShellMutedBrush}" />
+            <Slider Minimum="0" Maximum="255" Value="{Binding Red, RelativeSource={RelativeSource AncestorType=Window}}" Style="{StaticResource ShellSliderStyle}" />
+
+            <TextBlock Margin="0,12,0,6" Text="Green" Foreground="{DynamicResource ShellMutedBrush}" />
+            <Slider Minimum="0" Maximum="255" Value="{Binding Green, RelativeSource={RelativeSource AncestorType=Window}}" Style="{StaticResource ShellSliderStyle}" />
+
+            <TextBlock Margin="0,12,0,6" Text="Blue" Foreground="{DynamicResource ShellMutedBrush}" />
+            <Slider Minimum="0" Maximum="255" Value="{Binding Blue, RelativeSource={RelativeSource AncestorType=Window}}" Style="{StaticResource ShellSliderStyle}" />
+
+            <StackPanel Margin="0,18,0,0"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button Style="{StaticResource ShellButtonStyle}"
+                        Margin="0,0,10,0"
+                        Click="Cancel_OnClick"
+                        Content="Cancel" />
+                <Button Style="{StaticResource ShellButtonStyle}"
+                        Click="Apply_OnClick"
+                        Content="Apply" />
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>

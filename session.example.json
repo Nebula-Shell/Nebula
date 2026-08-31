@@ -1,0 +1,16 @@
+{
+  "savedAt": "2026-04-18T01:35:00.0000000+00:00",
+  "activeWorkspaceIndex": 3,
+  "windows": [
+    {
+      "title": "Visual Studio Code",
+      "processName": "Code",
+      "executablePath": "C:\\Users\\Ev\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
+    },
+    {
+      "title": "Windows Terminal",
+      "processName": "WindowsTerminal",
+      "executablePath": "C:\\Program Files\\WindowsApps\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\WindowsTerminal.exe"
+    }
+  ]
+}

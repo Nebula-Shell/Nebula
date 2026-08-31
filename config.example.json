@@ -1,0 +1,150 @@
+{
+  "theme": {
+    "keepWindowsAccentSeparate": true,
+    "tintShellSurfacesWithAccent": true,
+    "accentColor": "#79E6F5",
+    "secondaryAccentColor": "#F8FDFF",
+    "foregroundColor": "#F5FBFF",
+    "mutedForegroundColor": "#8FA7B7",
+    "panelColor": "#141B23",
+    "backgroundColor": "#0A1118",
+    "wallpaperPath": null,
+    "showDesktopDecorations": true,
+    "recentWallpapers": [],
+    "accentPalette": ["#5AB7FF", "#79E6F5", "#59D2B1", "#93F27E", "#B6E16B", "#F5C16C", "#FF9A62", "#F58CC6", "#FF6FAE", "#B8A3FF", "#8DA2FF", "#C4AEFF"],
+    "backgroundOpacity": 0.92,
+    "panelOpacity": 0.78,
+    "enableBackdropBlur": false,
+    "enableShadows": true,
+    "enableTransparency": true,
+    "cornerRadius": 22
+  },
+  "logging": {
+    "level": "Info",
+    "maxFileSizeMb": 4
+  },
+  "animations": {
+    "fastMs": 140,
+    "normalMs": 220,
+    "slowMs": 320,
+    "overlayEasing": "CubicOut",
+    "launcherScaleFrom": 0.96,
+    "sidePanelOffset": 36,
+    "desiredFrameRate": 45
+  },
+  "performance": {
+    "activeWindowDebounceMs": 80,
+    "appDiscoveryCacheMinutes": 10,
+    "workspaceSyncThrottleMs": 180
+  },
+  "controlCenter": {
+    "inputWidgetPlacement": "Auto",
+    "barLayout": "Top",
+    "showMediaPill": true,
+    "showPomodoroPill": true
+  },
+  "windowing": {
+    "enableSoftTiling": true,
+    "tilingStrategy": "Grid",
+    "useRoundedFocusOutline": false,
+    "focusOutlineOffset": 2,
+    "focusOutlineThickness": 3,
+    "layoutGap": 14,
+    "outerMargin": 18,
+    "topReservedSpace": 82,
+    "overviewColumns": 3
+  },
+  "launcher": {
+    "displayMode": "Grid",
+    "maxResults": 8,
+    "searchDebounceMs": 90,
+    "preloadOnStartup": true,
+    "clearQueryOnClose": true,
+    "showRecentAppsOnEmptyQuery": true,
+    "recentAppLimit": 5,
+    "enableCommandMode": true,
+    "defaultTerminal": "Nebula",
+    "defaultFileExplorer": "WindowsExplorer",
+    "customTerminalPath": ""
+  },
+  "terminal": {
+    "followShellTransparency": true,
+    "opacity": 0.86
+  },
+  "notifications": {
+    "maxItems": 20,
+    "enableWindowsToasts": true,
+    "enableShellToasts": true,
+    "customSoundPath": null,
+    "shellToastPosition": "TopRight",
+    "showStartupStatus": true
+  },
+  "session": {
+    "sessionRestoreEnabled": true,
+    "relaunchAppsOnRestore": false
+  },
+  "startup": {
+    "showOnPrimaryMonitor": true,
+    "startLauncherOpen": false,
+    "startControlCenterOpen": false,
+    "trackForegroundWindow": true,
+    "startOnLogin": false,
+    "enableAutoStart": false,
+    "restartOnCrash": true,
+    "stopExplorerOnLaunch": true
+  },
+  "hotkeys": {
+    "bindings": [
+      { "action": "ToggleLauncher", "gesture": "Win" },
+      { "action": "OpenTerminal", "gesture": "Win+Enter" },
+      { "action": "OpenFileExplorer", "gesture": "Win+E" },
+      { "action": "ToggleControlCenter", "gesture": "Win+B" },
+      { "action": "ToggleNotificationCenter", "gesture": "Win+N" },
+      { "action": "ToggleClipboardHistory", "gesture": "Win+V" },
+      { "action": "CaptureRegion", "gesture": "Win+Shift+S" },
+      { "action": "ToggleSettingsPanel", "gesture": "Win+C" },
+      { "action": "ToggleDiscordDesktop", "gesture": "Win+D" },
+      { "action": "ToggleSpotifyDesktop", "gesture": "Win+M" },
+      { "action": "ToggleGitHubDesktop", "gesture": "Win+G" },
+      { "action": "ToggleFocusedWindowFullscreen", "gesture": "Win+F" },
+      { "action": "CloseFocusedWindow", "gesture": "Win+Q" },
+      { "action": "FocusWindow", "gesture": "Win+H", "direction": "Left" },
+      { "action": "FocusWindow", "gesture": "Win+L", "direction": "Right" },
+      { "action": "FocusWindow", "gesture": "Win+K", "direction": "Up" },
+      { "action": "FocusWindow", "gesture": "Win+J", "direction": "Down" },
+      { "action": "MoveWindow", "gesture": "Win+Shift+H", "direction": "Left" },
+      { "action": "MoveWindow", "gesture": "Win+Shift+L", "direction": "Right" },
+      { "action": "MoveWindow", "gesture": "Win+Shift+K", "direction": "Up" },
+      { "action": "MoveWindow", "gesture": "Win+Shift+J", "direction": "Down" },
+      { "action": "CycleWorkspacePrevious", "gesture": "Win+Left" },
+      { "action": "CycleWorkspaceNext", "gesture": "Win+Right" },
+      { "action": "MoveWindowToWorkspacePrevious", "gesture": "Win+Ctrl+Left" },
+      { "action": "MoveWindowToWorkspaceNext", "gesture": "Win+Ctrl+Right" },
+      { "action": "VolumeUp", "gesture": "VolumeUp" },
+      { "action": "VolumeDown", "gesture": "VolumeDown" },
+      { "action": "ToggleMute", "gesture": "VolumeMute" },
+      { "action": "MediaPlayPause", "gesture": "MediaPlayPause" },
+      { "action": "MediaNext", "gesture": "MediaNext" },
+      { "action": "MediaPrevious", "gesture": "MediaPrevious" },
+      { "action": "BrightnessUp", "gesture": "BrightnessUp" },
+      { "action": "BrightnessDown", "gesture": "BrightnessDown" },
+      { "action": "ToggleOverview", "gesture": "Win+Tab" },
+      { "action": "SwitchWorkspace", "gesture": "Win+1", "workspace": 1 },
+      { "action": "SwitchWorkspace", "gesture": "Win+2", "workspace": 2 },
+      { "action": "SwitchWorkspace", "gesture": "Win+3", "workspace": 3 },
+      { "action": "SwitchWorkspace", "gesture": "Win+4", "workspace": 4 },
+      { "action": "SwitchWorkspace", "gesture": "Win+5", "workspace": 5 },
+      { "action": "SwitchWorkspace", "gesture": "Win+6", "workspace": 6 },
+      { "action": "SwitchWorkspace", "gesture": "Win+7", "workspace": 7 },
+      { "action": "SwitchWorkspace", "gesture": "Win+8", "workspace": 8 },
+      { "action": "MoveWindowToWorkspace", "gesture": "Win+Shift+1", "workspace": 1 },
+      { "action": "MoveWindowToWorkspace", "gesture": "Win+Shift+2", "workspace": 2 },
+      { "action": "MoveWindowToWorkspace", "gesture": "Win+Shift+3", "workspace": 3 },
+      { "action": "MoveWindowToWorkspace", "gesture": "Win+Shift+4", "workspace": 4 },
+      { "action": "MoveWindowToWorkspace", "gesture": "Win+Shift+5", "workspace": 5 },
+      { "action": "MoveWindowToWorkspace", "gesture": "Win+Shift+6", "workspace": 6 },
+      { "action": "MoveWindowToWorkspace", "gesture": "Win+Shift+7", "workspace": 7 },
+      { "action": "MoveWindowToWorkspace", "gesture": "Win+Shift+8", "workspace": 8 }
+    ]
+  }
+}

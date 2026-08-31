@@ -1,0 +1,36 @@
+namespace CaelestiaWin.Core.Enums;
+
+public enum HotkeyActionKind
+{
+    ToggleLauncher = 0,
+    OpenTerminal = 1,
+    OpenFileExplorer = 2,
+    ToggleControlCenter = 3,
+    CloseFocusedWindow = 4,
+    SwitchWorkspace = 5,
+    ToggleNotificationCenter = 6,
+    FocusWindow = 7,
+    MoveWindow = 8,
+    MoveWindowToWorkspace = 9,
+    ToggleOverview = 10,
+    CycleWorkspacePrevious = 11,
+    CycleWorkspaceNext = 12,
+    ToggleSettingsPanel = 13,
+    ToggleFocusedWindowFullscreen = 14,
+    ToggleFocusedWindowFloat = 30,
+    VolumeUp = 15,
+    VolumeDown = 16,
+    ToggleMute = 17,
+    MediaPlayPause = 18,
+    MediaNext = 19,
+    MediaPrevious = 20,
+    BrightnessUp = 21,
+    BrightnessDown = 22,
+    MoveWindowToWorkspacePrevious = 23,
+    MoveWindowToWorkspaceNext = 24,
+    ToggleDiscordDesktop = 25,
+    CaptureRegion = 26,
+    ToggleSpotifyDesktop = 27,
+    ToggleGitHubDesktop = 28,
+    ToggleClipboardHistory = 29
+}

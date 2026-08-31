@@ -1,0 +1,504 @@
+<UserControl x:Class="CaelestiaWin.UI.Views.LauncherOverlayView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:models="clr-namespace:CaelestiaWin.Core.Models;assembly=CaelestiaWin.Core"
+             Visibility="Collapsed"
+             Opacity="0">
+    <UserControl.Resources>
+        <Style x:Key="LauncherCardListBoxItemStyle" TargetType="ListBoxItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="LauncherGridItemTemplate" DataType="{x:Type models:LauncherSearchResult}">
+            <Border MinHeight="118"
+                    Margin="8"
+                    Padding="14"
+                    Background="#12000000"
+                    BorderBrush="{DynamicResource ShellHairlineBrush}"
+                    BorderThickness="1"
+                    CornerRadius="18">
+                <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Background" Value="#12000000" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" Value="True">
+                                    <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
+                                    <Setter Property="Background" Value="#1F2A333D" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsMouseOver}" Value="True">
+                                    <Setter Property="Background" Value="#18232D38" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsFavorite}" Value="True">
+                                    <Setter Property="BorderBrush" Value="{DynamicResource AccentSoftBrush}" />
+                                    <Setter Property="Background" Value="#1AFFFFFF" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Width="40"
+                              Height="40"
+                              VerticalAlignment="Top">
+                            <Image Source="{Binding App.IconPath}"
+                                   Width="30"
+                                   Height="30"
+                                   Stretch="Uniform"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Visibility="{Binding App.IconPath, Converter={StaticResource StringHasTextToVisibilityConverter}}" />
+                            <TextBlock Text="{Binding SourceLabel}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontFamily="{DynamicResource ShellHeadingFont}"
+                                       FontSize="9"
+                                       FontWeight="SemiBold"
+                                       Foreground="{DynamicResource AccentBrush}"
+                                       Visibility="{Binding App.IconPath, Converter={StaticResource StringHasTextToVisibilityConverter}, ConverterParameter=Invert}" />
+                        </Grid>
+
+                        <Button Grid.Column="2"
+                                Width="28"
+                                Height="28"
+                                Padding="0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Style="{StaticResource IconButtonStyle}"
+                                Command="{Binding DataContext.ToggleFavoriteCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding}"
+                                ToolTip="Toggle favorite">
+                            <TextBlock FontFamily="Segoe MDL2 Assets"
+                                       FontSize="14"
+                                       Foreground="{DynamicResource AccentBrush}">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Text" Value="&#xE734;" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsFavorite}" Value="True">
+                                                <Setter Property="Text" Value="&#xE735;" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Button>
+                    </Grid>
+
+                    <StackPanel Grid.Row="1"
+                                Margin="0,12,0,10">
+                        <Grid ClipToBounds="True">
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Left">
+                                <TextBlock Text="{Binding MatchPrefix}"
+                                           FontSize="16"
+                                           FontFamily="{DynamicResource ShellHeadingFont}"
+                                           Foreground="{DynamicResource ShellForegroundBrush}"
+                                           TextTrimming="CharacterEllipsis"
+                                           TextWrapping="NoWrap" />
+                                <TextBlock Text="{Binding MatchText}"
+                                           FontSize="16"
+                                           FontFamily="{DynamicResource ShellHeadingFont}"
+                                           Foreground="{DynamicResource AccentBrush}"
+                                           TextTrimming="CharacterEllipsis"
+                                           TextWrapping="NoWrap" />
+                                <TextBlock Text="{Binding MatchSuffix}"
+                                           FontSize="16"
+                                           FontFamily="{DynamicResource ShellHeadingFont}"
+                                           Foreground="{DynamicResource ShellForegroundBrush}"
+                                           TextTrimming="CharacterEllipsis"
+                                           TextWrapping="NoWrap" />
+                            </StackPanel>
+                        </Grid>
+                        <TextBlock Margin="0,6,0,0"
+                                   FontSize="12"
+                                   Foreground="{DynamicResource ShellMutedBrush}"
+                                   Text="{Binding Subtitle}"
+                                   TextTrimming="CharacterEllipsis"
+                                   TextWrapping="Wrap"
+                                   Height="32" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2"
+                                Orientation="Horizontal">
+                        <Border Padding="9,4"
+                                Background="#12000000"
+                                BorderBrush="{DynamicResource ShellHairlineBrush}"
+                                BorderThickness="1"
+                                CornerRadius="11">
+                            <TextBlock Text="{Binding SourceLabel}"
+                                       FontFamily="{DynamicResource ShellHeadingFont}"
+                                       FontSize="10"
+                                       Foreground="{DynamicResource ShellMutedBrush}" />
+                        </Border>
+                        <Border Margin="8,0,0,0"
+                                Padding="9,4"
+                                Background="{DynamicResource AccentSoftBrush}"
+                                BorderBrush="{DynamicResource AccentBrush}"
+                                BorderThickness="1"
+                                CornerRadius="11">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsRecent}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <TextBlock Text="Recent"
+                                       Foreground="{DynamicResource AccentBrush}"
+                                       FontSize="10"
+                                       FontFamily="{DynamicResource ShellHeadingFont}" />
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="LauncherListItemTemplate" DataType="{x:Type models:LauncherSearchResult}">
+            <Border MinHeight="88"
+                    Margin="6"
+                    Padding="16,14"
+                    Background="#12000000"
+                    BorderBrush="{DynamicResource ShellHairlineBrush}"
+                    BorderThickness="1"
+                    CornerRadius="18">
+                <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Background" Value="#12000000" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" Value="True">
+                                    <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
+                                    <Setter Property="Background" Value="#1F2A333D" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsMouseOver}" Value="True">
+                                    <Setter Property="Background" Value="#18232D38" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsFavorite}" Value="True">
+                                    <Setter Property="BorderBrush" Value="{DynamicResource AccentSoftBrush}" />
+                                    <Setter Property="Background" Value="#1AFFFFFF" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Width="44"
+                          Height="44"
+                          VerticalAlignment="Center">
+                        <Image Source="{Binding App.IconPath}"
+                               Width="32"
+                               Height="32"
+                               Stretch="Uniform"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Visibility="{Binding App.IconPath, Converter={StaticResource StringHasTextToVisibilityConverter}}" />
+                        <TextBlock Text="{Binding SourceLabel}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontFamily="{DynamicResource ShellHeadingFont}"
+                                   FontSize="9"
+                                   FontWeight="SemiBold"
+                                   Foreground="{DynamicResource AccentBrush}"
+                                   Visibility="{Binding App.IconPath, Converter={StaticResource StringHasTextToVisibilityConverter}, ConverterParameter=Invert}" />
+                    </Grid>
+
+                    <StackPanel Grid.Column="1"
+                                Margin="14,0,18,0"
+                                VerticalAlignment="Center">
+                        <Grid ClipToBounds="True">
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Left">
+                                <TextBlock Text="{Binding MatchPrefix}"
+                                           FontSize="18"
+                                           FontFamily="{DynamicResource ShellHeadingFont}"
+                                           Foreground="{DynamicResource ShellForegroundBrush}"
+                                           TextTrimming="CharacterEllipsis"
+                                           TextWrapping="NoWrap" />
+                                <TextBlock Text="{Binding MatchText}"
+                                           FontSize="18"
+                                           FontFamily="{DynamicResource ShellHeadingFont}"
+                                           Foreground="{DynamicResource AccentBrush}"
+                                           TextTrimming="CharacterEllipsis"
+                                           TextWrapping="NoWrap" />
+                                <TextBlock Text="{Binding MatchSuffix}"
+                                           FontSize="18"
+                                           FontFamily="{DynamicResource ShellHeadingFont}"
+                                           Foreground="{DynamicResource ShellForegroundBrush}"
+                                           TextTrimming="CharacterEllipsis"
+                                           TextWrapping="NoWrap" />
+                            </StackPanel>
+                        </Grid>
+                        <TextBlock Margin="0,4,0,0"
+                                   FontSize="12"
+                                   Foreground="{DynamicResource ShellMutedBrush}"
+                                   Text="{Binding Subtitle}"
+                                   TextTrimming="CharacterEllipsis" />
+                    </StackPanel>
+
+                    <Border Grid.Column="2"
+                            Padding="9,4"
+                            VerticalAlignment="Center"
+                            Background="#12000000"
+                            BorderBrush="{DynamicResource ShellHairlineBrush}"
+                            BorderThickness="1"
+                            CornerRadius="11">
+                        <TextBlock Text="{Binding SourceLabel}"
+                                   FontFamily="{DynamicResource ShellHeadingFont}"
+                                   FontSize="10"
+                                   Foreground="{DynamicResource ShellMutedBrush}" />
+                    </Border>
+
+                    <Button Grid.Column="3"
+                            Width="28"
+                            Height="28"
+                            Margin="10,0,0,0"
+                            Padding="0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource IconButtonStyle}"
+                            Command="{Binding DataContext.ToggleFavoriteCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            CommandParameter="{Binding}"
+                            ToolTip="Toggle favorite">
+                        <TextBlock FontFamily="Segoe MDL2 Assets"
+                                   FontSize="14"
+                                   Foreground="{DynamicResource AccentBrush}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Text" Value="&#xE734;" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsFavorite}" Value="True">
+                                            <Setter Property="Text" Value="&#xE735;" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Button>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid x:Name="Backdrop" Background="{DynamicResource ShellBackdropBrush}" MouseLeftButtonDown="Backdrop_OnMouseLeftButtonDown">
+        <Border x:Name="Panel"
+                Width="820"
+                MaxHeight="660"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Padding="0"
+                Style="{StaticResource GlassPanelStyle}"
+                RenderTransformOrigin="0.5,0.5">
+            <Border.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform x:Name="PanelScale" ScaleX="0.96" ScaleY="0.96" />
+                </TransformGroup>
+            </Border.RenderTransform>
+
+            <Grid ClipToBounds="True">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Border Padding="24,22,24,18"
+                        Background="#16000000"
+                        BorderBrush="{DynamicResource ShellHairlineBrush}"
+                        BorderThickness="0,0,0,1"
+                        CornerRadius="24,24,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border Width="46"
+                                Height="46"
+                                CornerRadius="18"
+                                Background="{DynamicResource AccentSoftBrush}"
+                                BorderBrush="{DynamicResource AccentBrush}"
+                                BorderThickness="1">
+                            <TextBlock Text="&#xE721;"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       FontSize="20"
+                                       Foreground="{DynamicResource AccentBrush}" />
+                        </Border>
+
+                        <StackPanel Grid.Column="1"
+                                    Margin="16,0,0,0"
+                                    VerticalAlignment="Center">
+                            <TextBlock Text="Nebula Launcher"
+                                       FontSize="24"
+                                       FontFamily="{DynamicResource ShellHeadingFont}"
+                                       Foreground="{DynamicResource ShellForegroundBrush}" />
+                            <TextBlock Margin="0,4,0,0"
+                                       Text="Apps, shell commands, settings"
+                                       FontSize="13"
+                                       Foreground="{DynamicResource ShellMutedBrush}" />
+                        </StackPanel>
+
+                        <Border Grid.Column="2"
+                                Padding="10,6"
+                                VerticalAlignment="Center"
+                                Background="#12000000"
+                                BorderBrush="{DynamicResource ShellHairlineBrush}"
+                                BorderThickness="1"
+                                CornerRadius="12">
+                            <TextBlock Text="Enter to launch"
+                                       FontSize="12"
+                                       Foreground="{DynamicResource ShellMutedBrush}" />
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="1"
+                        Margin="24,20,24,16"
+                        Padding="18,0"
+                        MinHeight="64"
+                        Background="#12000000"
+                        BorderBrush="{DynamicResource ShellHairlineBrush}"
+                        BorderThickness="1"
+                        CornerRadius="18">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock VerticalAlignment="Center"
+                                   FontFamily="Segoe MDL2 Assets"
+                                   FontSize="18"
+                                   Foreground="{DynamicResource AccentBrush}"
+                                   Text="&#xE721;"
+                                   IsHitTestVisible="False" />
+
+                        <Grid Grid.Column="1"
+                              Margin="14,0,12,0">
+                            <TextBox x:Name="SearchBox"
+                                     Background="Transparent"
+                                     BorderThickness="0"
+                                     CaretBrush="{DynamicResource AccentBrush}"
+                                     FontFamily="{DynamicResource ShellHeadingFont}"
+                                     FontSize="20"
+                                     Foreground="{DynamicResource ShellForegroundBrush}"
+                                     Padding="0"
+                                     VerticalContentAlignment="Center"
+                                     Text="{Binding Query, UpdateSourceTrigger=PropertyChanged}"
+                                     PreviewKeyDown="SearchBox_OnPreviewKeyDown" />
+                            <TextBlock VerticalAlignment="Center"
+                                       FontSize="17"
+                                       Foreground="{DynamicResource ShellMutedBrush}"
+                                       IsHitTestVisible="False"
+                                       Visibility="{Binding Text, ElementName=SearchBox, Converter={StaticResource StringHasTextToVisibilityConverter}, ConverterParameter=Invert}"
+                                       Text="Search apps, commands, or terminals" />
+                        </Grid>
+
+                        <Button Grid.Column="2"
+                                MinWidth="86"
+                                Height="34"
+                                Padding="12,0"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource ShellButtonStyle}"
+                                Background="#14000000"
+                                BorderBrush="{DynamicResource ShellHairlineBrush}"
+                                Command="{Binding ToggleAllAppsModeCommand}"
+                                Content="{Binding AllAppsButtonText}" />
+                    </Grid>
+                </Border>
+
+                <Grid Grid.Row="2" Margin="18,0,18,20">
+                    <ListBox x:Name="GridResultsList"
+                             ItemsSource="{Binding Results}"
+                             SelectedItem="{Binding SelectedItem}"
+                             ItemContainerStyle="{StaticResource LauncherCardListBoxItemStyle}"
+                             ItemTemplate="{StaticResource LauncherGridItemTemplate}"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             MaxHeight="308"
+                             PreviewMouseLeftButtonUp="ResultsList_OnPreviewMouseLeftButtonUp">
+                        <ListBox.Style>
+                            <Style TargetType="ListBox" BasedOn="{StaticResource LauncherListBoxStyle}">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding UseGridDisplay}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.Style>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid IsItemsHost="True"
+                                             Columns="3" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                    </ListBox>
+
+                    <ListBox x:Name="ResultsList"
+                             ItemsSource="{Binding Results}"
+                             SelectedItem="{Binding SelectedItem}"
+                             ItemContainerStyle="{StaticResource LauncherCardListBoxItemStyle}"
+                             ItemTemplate="{StaticResource LauncherListItemTemplate}"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             PreviewMouseLeftButtonUp="ResultsList_OnPreviewMouseLeftButtonUp">
+                        <ListBox.Style>
+                            <Style TargetType="ListBox" BasedOn="{StaticResource LauncherListBoxStyle}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding UseGridDisplay}" Value="False">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.Style>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel IsItemsHost="True" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                    </ListBox>
+
+                    <TextBlock VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Foreground="{DynamicResource ShellMutedBrush}"
+                               Text="{Binding StatusText}"
+                               Visibility="{Binding StatusText, Converter={StaticResource StringHasTextToVisibilityConverter}}" />
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

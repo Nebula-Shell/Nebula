@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <LangVersion>12.0</LangVersion>
+    <ApplicationIcon>..\assets\nebula-shell.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CaelestiaWin.Config\CaelestiaWin.Config.csproj" />
+    <ProjectReference Include="..\CaelestiaWin.Core\CaelestiaWin.Core.csproj" />
+    <ProjectReference Include="..\CaelestiaWin.Hotkeys\CaelestiaWin.Hotkeys.csproj" />
+    <ProjectReference Include="..\CaelestiaWin.Platform.Windows\CaelestiaWin.Platform.Windows.csproj" />
+    <ProjectReference Include="..\CaelestiaWin.UI\CaelestiaWin.UI.csproj" />
+    <ProjectReference Include="..\CaelestiaWin.Windowing\CaelestiaWin.Windowing.csproj" />
+  </ItemGroup>
+
+  <Target Name="BuildNebulaTerminal" AfterTargets="Build" Condition="'$(DesignTimeBuild)' != 'true'">
+    <MSBuild Projects="..\CaelestiaWin.Terminal\CaelestiaWin.Terminal.csproj"
+             Targets="Build"
+             Properties="Configuration=$(Configuration)" />
+    <ItemGroup>
+      <NebulaTerminalBuildFiles Include="..\CaelestiaWin.Terminal\bin\$(Configuration)\net8.0-windows\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(NebulaTerminalBuildFiles)"
+          DestinationFolder="$(TargetDir)"
+          SkipUnchangedFiles="true" />
+  </Target>
+
+  <Target Name="PublishNebulaTerminal" AfterTargets="Publish">
+    <MSBuild Projects="..\CaelestiaWin.Terminal\CaelestiaWin.Terminal.csproj"
+             Targets="Publish"
+             Properties="Configuration=$(Configuration);RuntimeIdentifier=$(RuntimeIdentifier);SelfContained=$(SelfContained);PublishDir=$(PublishDir)" />
+  </Target>
+</Project>

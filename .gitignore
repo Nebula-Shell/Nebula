@@ -1,0 +1,59 @@
+# Build output
+bin/
+obj/
+Debug/
+Release/
+x64/
+x86/
+arm64/
+.artifacts/
+artifacts/
+**/*_wpftmp.csproj
+
+# Publish and installer artifacts
+dist/
+*.nupkg
+*.snupkg
+*.msix
+*.msixbundle
+*.appx
+*.appxbundle
+
+# Visual Studio and Rider
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.rsuser
+
+# .NET tooling
+TestResults/
+coverage/
+coverage.cobertura.xml
+*.coverage
+*.coveragexml
+packages/
+*.nupkg.metadata
+project.lock.json
+project.fragment.lock.json
+artifacts.json
+
+# Logs and diagnostics
+*.log
+logs/
+crash-state.json
+
+# OS/editor noise
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.tmp
+*.temp
+*.swp
+
+# Local runtime state
+config.json
+session.json

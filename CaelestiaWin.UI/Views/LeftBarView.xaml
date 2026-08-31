@@ -1,0 +1,352 @@
+<UserControl x:Class="CaelestiaWin.UI.Views.LeftBarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border Width="74"
+            Padding="8"
+            Style="{StaticResource GlassPanelStyle}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Button Width="42"
+                    Height="42"
+                    Padding="0"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    Command="{Binding ToggleLauncherCommand}"
+                    HorizontalAlignment="Center"
+                    ToolTip="Open launcher">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="LogoChrome"
+                                Background="Transparent"
+                                CornerRadius="21">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="LogoChrome" Property="Background" Value="#16FFFFFF" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="LogoChrome" Property="Opacity" Value="0.78" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <Grid Width="20"
+                      Height="20"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="3" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="3" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Rectangle Grid.Row="0" Grid.Column="0" Fill="{DynamicResource ShellForegroundBrush}" RadiusX="1.4" RadiusY="1.4" />
+                    <Rectangle Grid.Row="0" Grid.Column="2" Fill="{DynamicResource ShellForegroundBrush}" RadiusX="1.4" RadiusY="1.4" />
+                    <Rectangle Grid.Row="2" Grid.Column="0" Fill="{DynamicResource ShellForegroundBrush}" RadiusX="1.4" RadiusY="1.4" />
+                    <Rectangle Grid.Row="2" Grid.Column="2" Fill="{DynamicResource ShellForegroundBrush}" RadiusX="1.4" RadiusY="1.4" />
+                </Grid>
+            </Button>
+
+            <Border Grid.Row="1"
+                    x:Name="DesktopStripRail"
+                    Margin="0,14,0,0"
+                    Padding="5"
+                    CornerRadius="26"
+                    Background="#0F000000"
+                    BorderBrush="{DynamicResource ShellHairlineBrush}"
+                    BorderThickness="1"
+                    PreviewMouseWheel="DesktopStripRail_OnPreviewMouseWheel"
+                    RenderTransformOrigin="0.5,0.5">
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform x:Name="DesktopStripScale"
+                                        ScaleX="1"
+                                        ScaleY="1" />
+                        <TranslateTransform x:Name="DesktopStripTranslate"
+                                            Y="0" />
+                    </TransformGroup>
+                </Border.RenderTransform>
+                <ItemsControl ItemsSource="{Binding DesktopStripItems}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Width="42"
+                                    Height="38"
+                                    Margin="0,0,0,6"
+                                    Padding="0"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    Command="{Binding ActivateCommand}"
+                                    ToolTip="{Binding Name}">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border x:Name="WorkspaceShell"
+                                                Width="34"
+                                                Height="30"
+                                                CornerRadius="15"
+                                                Background="#08000000"
+                                                BorderBrush="Transparent"
+                                                BorderThickness="1">
+                                            <TextBlock x:Name="WorkspaceGlyph"
+                                                       Text="{Binding IndicatorGlyph}"
+                                                       FontFamily="{Binding IndicatorFontFamilyName}"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"
+                                                       FontSize="15"
+                                                       FontWeight="SemiBold"
+                                                       Foreground="{DynamicResource ShellForegroundBrush}"
+                                                       RenderTransformOrigin="0.5,0.5">
+                                                <TextBlock.RenderTransform>
+                                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                </TextBlock.RenderTransform>
+                                            </TextBlock>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="WorkspaceShell" Property="Background" Value="#18FFFFFF" />
+                                                <Setter TargetName="WorkspaceShell" Property="BorderBrush" Value="#3CFFFFFF" />
+                                            </Trigger>
+                                            <DataTrigger Binding="{Binding IsActive}" Value="True">
+                                                <Setter TargetName="WorkspaceShell" Property="Background" Value="{DynamicResource ShellDesktopIndicatorBrush}" />
+                                                <Setter TargetName="WorkspaceShell" Property="BorderBrush" Value="#AAFFFFFF" />
+                                                <Setter TargetName="WorkspaceGlyph" Property="Foreground" Value="#FF06121A" />
+                                                <Setter TargetName="WorkspaceGlyph" Property="FontSize" Value="16" />
+                                            </DataTrigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
+
+            <StackPanel Grid.Row="2"
+                        Margin="0,14,0,14"
+                        VerticalAlignment="Center">
+                <Border Padding="8"
+                        CornerRadius="24"
+                        Background="#10000000"
+                        BorderBrush="{DynamicResource ShellHairlineBrush}"
+                        BorderThickness="1">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ShowMediaPill}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <StackPanel>
+                        <Button Width="40"
+                                Height="40"
+                                Padding="0"
+                                Style="{StaticResource IconButtonStyle}"
+                                Command="{Binding PlayPauseCommand}"
+                                ToolTip="{Binding MediaSession.TrackTitle}">
+                            <TextBlock Text="{Binding MediaPlayPauseGlyph}"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       FontSize="18" />
+                        </Button>
+                        <TextBlock Text="{Binding MediaSession.TrackTitle}"
+                                   Width="42"
+                                   Margin="0,8,0,0"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   TextTrimming="CharacterEllipsis"
+                                   MaxHeight="62"
+                                   FontSize="10"
+                                   Foreground="{DynamicResource ShellMutedBrush}" />
+                    </StackPanel>
+                </Border>
+
+                <Border Margin="0,12,0,0"
+                        Width="42"
+                        Height="176"
+                        Padding="0"
+                        CornerRadius="24"
+                        Background="#0B000000"
+                        BorderBrush="{DynamicResource ShellHairlineBrush}"
+                        BorderThickness="1">
+                    <TextBlock Text="{Binding ActiveWindowTitle}"
+                               Width="150"
+                               TextAlignment="Center"
+                               TextTrimming="CharacterEllipsis"
+                               FontFamily="{DynamicResource ShellHeadingFont}"
+                               FontSize="11"
+                               Foreground="{DynamicResource ShellForegroundBrush}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center">
+                        <TextBlock.LayoutTransform>
+                            <RotateTransform Angle="-90" />
+                        </TextBlock.LayoutTransform>
+                    </TextBlock>
+                </Border>
+            </StackPanel>
+
+            <StackPanel Grid.Row="3"
+                        HorizontalAlignment="Center">
+                <StackPanel Margin="0,0,0,8">
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding HasTrayItems}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+
+                    <Button Width="42"
+                            Height="34"
+                            Style="{StaticResource IconButtonStyle}"
+                            Command="{Binding ToggleTrayCommand}"
+                            Content="{Binding TrayToggleGlyph}"
+                            ToolTip="{Binding TraySummary}" />
+
+                    <Border Margin="0,6,0,0"
+                            Padding="5"
+                            CornerRadius="19"
+                            Background="#12000000"
+                            BorderBrush="{DynamicResource ShellHairlineBrush}"
+                            BorderThickness="1">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsTrayExpanded}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <ItemsControl ItemsSource="{Binding TrayItems}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Width="32"
+                                            Height="32"
+                                            Margin="0,0,0,4"
+                                            Padding="0"
+                                            Command="{Binding DataContext.ActivateTrayItemCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                            CommandParameter="{Binding}"
+                                            PreviewMouseRightButtonUp="TrayItem_OnPreviewMouseRightButtonUp"
+                                            ToolTip="{Binding ToolTip}">
+                                        <Button.Style>
+                                            <Style TargetType="Button" BasedOn="{StaticResource ShellButtonStyle}">
+                                                <Setter Property="Background" Value="Transparent" />
+                                                <Setter Property="BorderBrush" Value="Transparent" />
+                                                <Setter Property="Padding" Value="0" />
+                                            </Style>
+                                        </Button.Style>
+                                        <Grid Width="23" Height="23">
+                                            <Image Source="{Binding IconPath}"
+                                                   Stretch="Uniform"
+                                                   Visibility="{Binding IconPath, Converter={StaticResource StringHasTextToVisibilityConverter}}" />
+                                            <TextBlock Text="{Binding Glyph}"
+                                                       FontFamily="{Binding FontFamilyName}"
+                                                       FontSize="13"
+                                                       Foreground="{DynamicResource ShellForegroundBrush}"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"
+                                                       Visibility="{Binding IconPath, Converter={StaticResource StringHasTextToVisibilityConverter}, ConverterParameter=Invert}" />
+                                        </Grid>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Border>
+                </StackPanel>
+
+                <Button Width="42"
+                        Height="42"
+                        Margin="0,0,0,8"
+                        Style="{StaticResource IconButtonStyle}"
+                        Command="{Binding ToggleControlCenterCommand}"
+                        ToolTip="Control Center">
+                    <Grid>
+                        <StackPanel Orientation="Vertical"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                            <TextBlock Text="{Binding VolumeGlyph}"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       FontSize="13"
+                                       HorizontalAlignment="Center" />
+                            <TextBlock Text="{Binding NetworkGlyph}"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       FontSize="13"
+                                       Margin="0,2,0,0"
+                                       HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Grid>
+                </Button>
+
+                <Grid Margin="0,0,0,8">
+                    <Button Width="48"
+                            Height="48"
+                            Style="{StaticResource IconButtonStyle}"
+                            Command="{Binding ToggleNotificationCenterCommand}"
+                            ToolTip="Notifications">
+                        <TextBlock Text="&#xE8BD;"
+                                   FontFamily="Segoe MDL2 Assets"
+                                   FontSize="17" />
+                    </Button>
+                    <Border Width="16"
+                            Height="16"
+                            Background="{DynamicResource AccentBrush}"
+                            CornerRadius="8"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Margin="0,-2,-2,0"
+                            Visibility="{Binding NotificationCount, Converter={StaticResource CountToVisibilityConverter}}">
+                        <TextBlock Text="{Binding NotificationCount}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="10"
+                                   Foreground="#FF071018"
+                                   FontWeight="Bold" />
+                    </Border>
+                </Grid>
+
+                <Button Width="48"
+                        Padding="0,6"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Command="{Binding ToggleNotificationCenterCommand}"
+                        ToolTip="Open notifications">
+                    <StackPanel>
+                        <TextBlock Text="{Binding ClockText}"
+                                   TextAlignment="Center"
+                                   FontFamily="{DynamicResource ShellHeadingFont}"
+                                   FontSize="14"
+                                   Foreground="{DynamicResource ShellForegroundBrush}" />
+                        <TextBlock Text="{Binding DateText}"
+                                   Margin="0,2,0,0"
+                                   TextAlignment="Center"
+                                   FontSize="9"
+                                   Foreground="{DynamicResource ShellMutedBrush}" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

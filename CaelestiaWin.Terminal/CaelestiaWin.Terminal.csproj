@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <LangVersion>12.0</LangVersion>
+    <AssemblyName>CaelestiaWin.Terminal</AssemblyName>
+    <RootNamespace>CaelestiaWin.Terminal</RootNamespace>
+    <ApplicationIcon>..\assets\nebula-shell.ico</ApplicationIcon>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CaelestiaWin.Core\CaelestiaWin.Core.csproj" />
+  </ItemGroup>
+</Project>
